@@ -1,0 +1,16 @@
+---
+# handlers for role ansible-winbind
+- name: AD join
+  tags: winbind
+  shell: /usr/bin/net ads join -U {{ adadminuser | quote }}%{{ adadminpw | quote }}
+  
+- name: flush net cache
+  tags: winbind
+  shell: /usr/bin/net cache flush
+  
+  
+- name: restart winbind
+  tags: winbind
+  service:
+    name=winbind
+    state=restarted

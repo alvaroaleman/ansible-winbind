@@ -1,0 +1,30 @@
+[libdefaults]
+ ticket_lifetime = 24000
+ default_realm = {{ addomain }}
+ default_tgs_entypes = rc4-hmac des-cbc-md5
+ default_tkt__enctypes = rc4-hmac des-cbc-md5
+ permitted_enctypes = rc4-hmac des-cbc-md5
+ dns_lookup_realm = true
+ dns_lookup_kdc = true
+ dns_fallback = yes
+
+[realms]
+
+
+[domain_realm]
+
+
+[appdefaults]
+ pam = {
+   debug = false
+   ticket_lifetime = 36000
+   renew_lifetime = 36000
+   forwardable = true
+   krb4_convert = false
+ }
+
+[logging]
+ default = FILE:/var/log/krb5libs.log
+ kdc = FILE:/var/log/krb5kdc.log
+ admin_server = FILE:/var/log/kadmind.log
+ 

@@ -1,0 +1,85 @@
+---
+# tasks main for role ansible-winbind
+- name: Assert supported platform and required variables
+  tags: ansible
+  assert:
+    that:
+      - ansible_distribution in ['CentOS', 'Ubuntu']
+      - ansible_distribution_major_version in ['7', '14']
+      - addomain is defined
+      - adworkgroup is defined
+      - adadminuser is defined
+      - adadminpw is defined
+
+- name: Include required vars
+  tags: vars
+  include_vars: "{{ ansible_distribution }}.yml"
+  
+- name: ensure /etc/samba present
+  tags: winbind
+  file:
+    path=/etc/samba
+    state=directory
+    owner=0
+    group=0
+    mode=0755   
+
+- include: Ubuntu.yml
+  tags: ansible
+  when: ansible_distribution == 'Ubuntu'
+
+- include: CentOS.yml
+  tags: ansible
+  when: ansible_distribution == 'CentOS'
+
+- name: copy /etc/nsswitch.conf
+  tags: winbind
+  copy:
+    src="{{ ansible_distribution }}.nsswitch.conf"
+    dest=/etc/nsswitch.conf
+    owner=0
+    group=0
+    mode=0644
+    
+- name: copy /etc/pam.d/common-session
+  tags: winbind
+  copy:
+    src=common-session
+    dest=/etc/pam.d/common-session
+    owner=0
+    group=0
+    mode=0644
+    
+- name: copy /etc/sudoers.d/winbind
+  tags: winbind
+  copy:
+    src=sudoers.winbind
+    dest=/etc/sudoers.d/winbind
+    owner=0
+    group=0
+    mode=0400
+  
+- name: copy /etc/krb5.conf
+  tags: winbind
+  template:
+    src=krb5.conf.j2
+    dest=/etc/krb5.conf
+    owner=0
+    group=0
+    mode=0644
+  
+- name: copy /etc/samba/smb.conf
+  tags: winbind
+  template:
+    src=smb.conf.j2
+    dest=/etc/samba/smb.conf
+    owner=0
+    group=0
+    mode=0644
+  notify:
+  - AD join
+  - flush net cache
+  - restart winbind
+ 
+
+

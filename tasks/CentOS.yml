@@ -1,0 +1,34 @@
+---
+# tasks CentOS for role ansible-winbind
+
+- name: winbind centos packages
+  tags: winbind
+  with_items: ansible_winbind_centos_packages
+  yum:
+    state: installed
+    name: "{{ item }}"
+    
+- name: copy /etc/pam.d/system-auth-ac
+  tags: winbind
+  copy:
+    src=system-auth-ac
+    dest=/etc/pam.d/system-auth-ac
+    owner=0
+    group=0
+    mode=0644
+    
+- name: copy /etc/pam.d/password-auth-ac
+  tags: winbind
+  copy:
+    src=password-auth-ac
+    dest=/etc/pam.d/password-auth-ac
+    owner=0
+    group=0
+    mode=0644
+
+- name: enable winbind service
+  tags: winbind
+  service:
+    name=winbind
+    enabled=yes
+    state=started
