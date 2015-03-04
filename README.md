@@ -15,6 +15,6 @@ Ubuntu 14.04 Trusty Tahr or CentOS 7
 * ``adadminuser``:  Username of a user who has permissions to add hosts to AD, eg Administrator
 * ``adadminpw``:  Password of the above specified user
 
-### Author
+## Author
 
 Alvaro Aleman
