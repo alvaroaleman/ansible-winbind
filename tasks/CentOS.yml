@@ -1,5 +1,10 @@
 ---
 # tasks CentOS for role ansible-winbind
+- name: assert supported platform version
+  tags: ansible
+  assert:
+    that:
+      - ansible_distribution_major_version == '7'
 
 - name: winbind centos packages
   tags: winbind

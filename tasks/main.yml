@@ -4,8 +4,7 @@
   tags: ansible
   assert:
     that:
-      - ansible_distribution in ['CentOS', 'Ubuntu']
-      - ansible_distribution_major_version in ['7', '14']
+      - ansible_distribution in ['CentOS', 'Ubuntu', 'Debian']
       - addomain is defined
       - adworkgroup is defined
       - adadminuser is defined
@@ -24,9 +23,9 @@
     group=0
     mode=0755   
 
-- include: Ubuntu.yml
+- include: Debian-platform.yml
   tags: ansible
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution in ['Ubuntu', 'Debian']
 
 - include: CentOS.yml
   tags: ansible
