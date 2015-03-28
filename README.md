@@ -4,7 +4,11 @@ This role configures winbind authentication on a Ubuntu Trusty or CentOS 7 host
 
 ## Requirements
 
-Ubuntu 14.04 Trusty Tahr or CentOS 7
+One of either
+
+- Ubuntu 14.04
+- Debian 8
+- Centos 7
 
 ## Role Variables
 
@@ -15,6 +19,6 @@ Ubuntu 14.04 Trusty Tahr or CentOS 7
 * ``adadminuser``:  Username of a user who has permissions to add hosts to AD, eg Administrator
 * ``adadminpw``:  Password of the above specified user
 
-### Author
+### Original Author
 
 Alvaro Aleman
