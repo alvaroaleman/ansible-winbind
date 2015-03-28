@@ -1,19 +1,19 @@
 ---
-# tasks Ubuntu for role ansible-winbind
-- name: assert supported platform version
+# tasks Debian-platform for role ansible-winbind
+- name: assert supported distribution release
   tags: ansible
   assert:
     that:
-      - ansible_distribution_major_version == '14'
+      - ansible_distribution_release in ['trusty', 'jessie']
 
-- name: ubuntu packages
+- name: debian platform packages
   tags: winbind
-  with_items: ansible_winbind_ubuntu_packages
+  with_items: ansible_winbind_debian_platform_packages 
   apt:
     state=installed
     name="{{ item }}"
     
-- name: ubuntu common-auth
+- name: debian platform common-auth
   tags: winbind
   copy:
     src=common-auth

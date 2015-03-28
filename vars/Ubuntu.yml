@@ -1,11 +1,1 @@
----
-# vars Ubuntu for role ansible-winbind
-ansible_winbind_ubuntu_packages:
-- winbind
-- libpam-winbind
-- libnss-winbind
-- krb5-config
-- krb5-locales
-- krb5-user
-- samba
-- samba-common-bin
+debian-platform.yml
