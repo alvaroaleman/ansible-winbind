@@ -1,18 +1,18 @@
 ---
-# tasks CentOS for role ansible-winbind
+# tasks Fedora for role ansible-winbind
 - name: assert supported platform version
   tags: ansible
   assert:
     that:
-      - ansible_distribution_major_version == 7
+      - ansible_distribution_major_version >= 22
 
-- name: winbind centos packages
+- name: winbind fedora packages
   tags: winbind
-  with_items: ansible_winbind_centos_packages
-  yum:
-    state: installed
-    name: "{{ item }}"
-    
+  with_items: ansible_winbind_fedora_packages
+  dnf:
+    state=installed
+    name="{{ item }}"
+
 - name: copy /etc/pam.d/system-auth-ac
   tags: winbind
   copy:
@@ -21,7 +21,7 @@
     owner=0
     group=0
     mode=0644
-    
+
 - name: copy /etc/pam.d/password-auth-ac
   tags: winbind
   copy:

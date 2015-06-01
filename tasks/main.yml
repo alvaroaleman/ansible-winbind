@@ -4,16 +4,12 @@
   tags: ansible
   assert:
     that:
-      - ansible_distribution in ['CentOS', 'Ubuntu', 'Debian']
+      - ansible_distribution in ['CentOS', 'Fedora', 'Ubuntu', 'Debian']
       - addomain is defined
       - adworkgroup is defined
       - adadminuser is defined
       - adadminpw is defined
 
-- name: Include required vars
-  tags: vars
-  include_vars: "{{ ansible_distribution }}.yml"
-  
 - name: ensure /etc/samba present
   tags: winbind
   file:
@@ -30,6 +26,10 @@
 - include: CentOS.yml
   tags: ansible
   when: ansible_distribution == 'CentOS'
+
+- include: Fedora.yml
+  tags: ansible
+  when: ansible_distribution == 'Fedora'
 
 - name: copy /etc/nsswitch.conf
   tags: winbind
@@ -79,6 +79,3 @@
   - AD join
   - flush net cache
   - restart winbind
- 
-
-
