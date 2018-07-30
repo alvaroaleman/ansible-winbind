@@ -1,6 +1,6 @@
 # The ansible-winbind role
 
-This role configures winbind authentication on a Ubuntu Trusty or CentOS 7 host 
+This role configures winbind authentication on a Ubuntu Trusty or CentOS 7 host
 
 ## Requirements
 
@@ -8,6 +8,7 @@ One of either
 
 - Ubuntu 14.04
 - Debian 8
+- Debian 9
 - Centos 7
 
 ## Role Variables
