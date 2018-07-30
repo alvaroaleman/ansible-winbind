@@ -4,11 +4,11 @@
   tags: ansible
   assert:
     that:
-      - ansible_distribution_release in ['trusty', 'jessie']
+      - ansible_distribution_release in ['trusty', 'jessie', 'stretch']
 
 - name: debian platform packages
   tags: winbind
-  with_items: ansible_winbind_debian_platform_packages 
+  with_items: "{{ ansible_winbind_debian_platform_packages }}"
   apt:
     state=installed
     name="{{ item }}"
